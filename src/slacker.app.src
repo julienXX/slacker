@@ -1,14 +1,19 @@
-{application, mylib,
+{application, slacker,
  [
-  {description, "An Erlang mylib library"},
+  {description, "Slack API client in Erlang"},
   {vsn, "1"},
   {modules, [
-             mylib
+             slacker
             ]},
   {registered, []},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib,
+                  inets,
+                  crypto,
+                  asn1,
+                  public_key,
+                  ssl
                  ]},
   {env, []}
  ]}.
