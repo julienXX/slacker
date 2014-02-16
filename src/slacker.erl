@@ -13,8 +13,14 @@
 
 %% API
 
+%%----------------------------------------------------------------------
+%% Function: users_list/1
+%% Purpose:  List all users in the team
+%% Args:     Token is your token
+%% Returns:  A list of {Status, Body}
+%%           or {error, Reason} (if the process is dead)
+%%----------------------------------------------------------------------
 users_list(Token) ->
-    %% List all users in the team
     slack_request(Token, "users.list").
 
 channels_history(Token) ->
