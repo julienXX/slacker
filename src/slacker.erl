@@ -13,6 +13,16 @@
 
 %% API
 
+init() ->
+    application:start(inets),
+    application:start(crypto),
+    application:start(asn1),
+    application:start(public_key),
+    application:start(ssl).
+
+
+%% Slack API
+
 %%----------------------------------------------------------------------
 %% Function: users_list/1
 %% Purpose:  List all users in the team
