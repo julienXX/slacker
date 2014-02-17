@@ -1,8 +1,9 @@
 -module(slacker).
 
 -export([
+         init/0,
          users_list/1,
-         channels_history/1, channels_mark/1, channels_list/1,
+         channels_history/2, channels_mark/3, channels_list/1,
          files_upload/1, files_list/1,
          im_history/1, im_list/1,
          groups_history/1, groups_list/1,
@@ -36,22 +37,22 @@ users_list(Token) ->
 %%----------------------------------------------------------------------
 %% Function: channels_history/1
 %% Purpose:  Fetch history of messages and events from a given channel
-%% Args:     Token is your token
+%% Args:     Token, Channel ID
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason} (if the process is dead)
 %%----------------------------------------------------------------------
-channels_history(Token) ->
-    slack_request(Token, "channels.history").
+channels_history(Token, Channel) ->
+    slack_request(Token, Channel, "channels.history").
 
 %%----------------------------------------------------------------------
 %% Function: channels_mark/1
 %% Purpose:  Set read cursor in a channel
-%% Args:     Token is your token
+%% Args:     Token, Channel ID, Timestamp of the most recently seen message
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason} (if the process is dead)
 %%----------------------------------------------------------------------
-channels_mark(Token) ->
-    slack_request(Token, "channels.mark").
+channels_mark(Token, Channel, Timestamp) ->
+    slack_request(Token, Channel, Timestamp, "channels.mark").
 
 %%----------------------------------------------------------------------
 %% Function: channels_list/1
@@ -168,6 +169,16 @@ post_message(Token) ->
 slack_request(Token, Endpoint) ->
     Base_URL = "https://slack.com/api/",
     URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token}]),
+    restc:request(get, URL).
+
+slack_request(Token, Channel, Endpoint) ->
+    Base_URL = "https://slack.com/api/",
+    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel}]),
+    restc:request(get, URL).
+
+slack_request(Token, Channel, Timestamp, Endpoint) ->
+    Base_URL = "https://slack.com/api/",
+    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel}]),
     restc:request(get, URL).
 
 ok() ->
