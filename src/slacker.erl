@@ -29,7 +29,7 @@ init() ->
 %% Purpose:  List all users in the team
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 users_list(Token) ->
     slack_request(Token, "users.list").
@@ -39,7 +39,7 @@ users_list(Token) ->
 %% Purpose:  Fetch history of messages and events from a given channel
 %% Args:     Token, Channel ID
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_history(Token, Channel) ->
     slack_request(Token, Channel, "channels.history").
@@ -49,7 +49,7 @@ channels_history(Token, Channel) ->
 %% Purpose:  Set read cursor in a channel
 %% Args:     Token, Channel ID, Timestamp of the most recently seen message
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_mark(Token, Channel, Timestamp) ->
     slack_request(Token, Channel, Timestamp, "channels.mark").
@@ -59,7 +59,7 @@ channels_mark(Token, Channel, Timestamp) ->
 %% Purpose:  List of all channels in the team.
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_list(Token) ->
     slack_request(Token, "channels.list").
@@ -69,17 +69,17 @@ channels_list(Token) ->
 %% Purpose:  Upload or create a file
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 files_upload(Token) ->
-    slack_request(Token, "files.upload").
+    erlang:error(not_implemented_error).
 
 %%----------------------------------------------------------------------
 %% Function: files_list/1
 %% Purpose:  List & filter team files
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 files_list(Token) ->
     slack_request(Token, "files.list").
@@ -89,7 +89,7 @@ files_list(Token) ->
 %% Purpose:  Fetch history of messages and events from a given direct message channel
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 im_history(Token) ->
     slack_request(Token, "im.history").
@@ -99,7 +99,7 @@ im_history(Token) ->
 %% Purpose:  List of im channels the user has.
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 im_list(Token) ->
     slack_request(Token, "im.list").
@@ -109,7 +109,7 @@ im_list(Token) ->
 %% Purpose:  Fetch history of messages and events from a given private group
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 groups_history(Token) ->
     slack_request(Token, "groups.history").
@@ -119,7 +119,7 @@ groups_history(Token) ->
 %% Purpose:  List of groups in the team that the calling user has access to.
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 groups_list(Token) ->
     slack_request(Token, "groups.list").
@@ -129,7 +129,7 @@ groups_list(Token) ->
 %% Purpose:  Search for messages and files matching a query
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 search_all(Token) ->
     slack_request(Token, "search.all").
@@ -139,7 +139,7 @@ search_all(Token) ->
 %% Purpose:  Search for files matching a query
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 search_files(Token) ->
     slack_request(Token, "search.files").
@@ -149,7 +149,7 @@ search_files(Token) ->
 %% Purpose:  Search for messages matching a query
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 search_messages(Token) ->
     slack_request(Token, "search.messages").
@@ -159,7 +159,7 @@ search_messages(Token) ->
 %% Purpose:  Post a message
 %% Args:     Token is your token
 %% Returns:  A list of {Status, Body}
-%%           or {error, Reason} (if the process is dead)
+%%           or {error, Reason}
 %%----------------------------------------------------------------------
 post_message(Token) ->
     slack_request(Token, "chat.postMessage").
