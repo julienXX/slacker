@@ -7,8 +7,8 @@
          files_upload/1, files_list/1,
          im_history/2, im_list/1,
          groups_history/2, groups_list/1,
-         search_all/1, search_files/1, search_messages/1,
-         post_message/1
+         search_all/2, search_files/2, search_messages/2,
+         post_message/3
 ]).
 
 
@@ -32,7 +32,7 @@ init() ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 users_list(Token) ->
-    slack_request(Token, "users.list").
+    slack_request("users.list", [{"token", Token}]).
 
 %%----------------------------------------------------------------------
 %% Function: channels_history/1
@@ -42,7 +42,7 @@ users_list(Token) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_history(Token, Channel) ->
-    slack_request(Token, Channel, "channels.history").
+    slack_request("channels.history", [{"token", Token},{"channel", Channel}]).
 
 %%----------------------------------------------------------------------
 %% Function: channels_mark/1
@@ -52,7 +52,7 @@ channels_history(Token, Channel) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_mark(Token, Channel, Timestamp) ->
-    slack_request(Token, Channel, Timestamp, "channels.mark").
+    slack_request("channels.mark", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
 
 %%----------------------------------------------------------------------
 %% Function: channels_list/1
@@ -62,7 +62,7 @@ channels_mark(Token, Channel, Timestamp) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 channels_list(Token) ->
-    slack_request(Token, "channels.list").
+    slack_request("channels.list", [{"token", Token}]).
 
 %%----------------------------------------------------------------------
 %% Function: files_upload/1
@@ -82,7 +82,7 @@ files_upload(Token) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 files_list(Token) ->
-    slack_request(Token, "files.list").
+    slack_request("files.list", [{"token", Token}]).
 
 %%----------------------------------------------------------------------
 %% Function: im_history/1
@@ -92,7 +92,7 @@ files_list(Token) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 im_history(Token, Channel) ->
-    slack_request(Token, Channel, "im.history").
+    slack_request("im.history", [{"token", Token},{"channel", Channel}]).
 
 %%----------------------------------------------------------------------
 %% Function: im_list/1
@@ -102,7 +102,7 @@ im_history(Token, Channel) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 im_list(Token) ->
-    slack_request(Token, "im.list").
+    slack_request("im.list", [{"token", Token}]).
 
 %%----------------------------------------------------------------------
 %% Function: groups_history/1
@@ -112,7 +112,7 @@ im_list(Token) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 groups_history(Token, Channel) ->
-    slack_request(Token, Channel, "groups.history").
+    slack_request("groups.history", [{"token", Token},{"channel", Channel}]).
 
 %%----------------------------------------------------------------------
 %% Function: groups_list/1
@@ -122,37 +122,37 @@ groups_history(Token, Channel) ->
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
 groups_list(Token) ->
-    slack_request(Token, "groups.list").
+    slack_request("groups.list", [{"token", Token}]).
 
 %%----------------------------------------------------------------------
 %% Function: search_all/1
 %% Purpose:  Search for messages and files matching a query
-%% Args:     Token is your token
+%% Args:     Token, Query
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-search_all(Token) ->
-    slack_request(Token, "search.all").
+search_all(Token, Query) ->
+    slack_request("search.all", [{"token", Token},{"query", Query}]).
 
 %%----------------------------------------------------------------------
 %% Function: search_files/1
 %% Purpose:  Search for files matching a query
-%% Args:     Token is your token
+%% Args:     Token, Query
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-search_files(Token) ->
-    slack_request(Token, "search.files").
+search_files(Token, Query) ->
+    slack_request("search.files", [{"token", Token},{"query", Query}]).
 
 %%----------------------------------------------------------------------
 %% Function: search_messages/1
 %% Purpose:  Search for messages matching a query
-%% Args:     Token is your token
+%% Args:     Token, Query
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-search_messages(Token) ->
-    slack_request(Token, "search.messages").
+search_messages(Token, Query) ->
+    slack_request("search.messages", [{"token", Token},{"query", Query}]).
 
 %%----------------------------------------------------------------------
 %% Function: post_message/1
@@ -161,24 +161,15 @@ search_messages(Token) ->
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-post_message(Token) ->
-    slack_request(Token, "chat.postMessage").
+post_message(Token, Channel, Message) ->
+    slack_request("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
+
 
 %% Internals
 
-slack_request(Token, Endpoint) ->
+slack_request(Endpoint, Params) ->
     Base_URL = "https://slack.com/api/",
-    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token}]),
-    restc:request(get, URL).
-
-slack_request(Token, Channel, Endpoint) ->
-    Base_URL = "https://slack.com/api/",
-    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel}]),
-    restc:request(get, URL).
-
-slack_request(Token, Channel, Timestamp, Endpoint) ->
-    Base_URL = "https://slack.com/api/",
-    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel},{"ts", Timestamp}]),
+    URL = restc:construct_url(Base_URL, Endpoint, Params),
     restc:request(get, URL).
 
 ok() ->
