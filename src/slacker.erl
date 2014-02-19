@@ -178,7 +178,7 @@ slack_request(Token, Channel, Endpoint) ->
 
 slack_request(Token, Channel, Timestamp, Endpoint) ->
     Base_URL = "https://slack.com/api/",
-    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel}]),
+    URL = restc:construct_url(Base_URL, Endpoint, [{"token", Token},{"channel", Channel},{"ts", Timestamp}]),
     restc:request(get, URL).
 
 ok() ->
