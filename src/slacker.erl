@@ -5,8 +5,8 @@
          users_list/1,
          channels_history/2, channels_mark/3, channels_list/1,
          files_upload/1, files_list/1,
-         im_history/1, im_list/1,
-         groups_history/1, groups_list/1,
+         im_history/2, im_list/1,
+         groups_history/2, groups_list/1,
          search_all/1, search_files/1, search_messages/1,
          post_message/1
 ]).
@@ -87,12 +87,12 @@ files_list(Token) ->
 %%----------------------------------------------------------------------
 %% Function: im_history/1
 %% Purpose:  Fetch history of messages and events from a given direct message channel
-%% Args:     Token is your token
+%% Args:     Token, Channel ID
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-im_history(Token) ->
-    slack_request(Token, "im.history").
+im_history(Token, Channel) ->
+    slack_request(Token, Channel, "im.history").
 
 %%----------------------------------------------------------------------
 %% Function: im_list/1
@@ -107,12 +107,12 @@ im_list(Token) ->
 %%----------------------------------------------------------------------
 %% Function: groups_history/1
 %% Purpose:  Fetch history of messages and events from a given private group
-%% Args:     Token is your token
+%% Args:     Token, Channel ID
 %% Returns:  A list of {Status, Body}
 %%           or {error, Reason}
 %%----------------------------------------------------------------------
-groups_history(Token) ->
-    slack_request(Token, "groups.history").
+groups_history(Token, Channel) ->
+    slack_request(Token, Channel, "groups.history").
 
 %%----------------------------------------------------------------------
 %% Function: groups_list/1
