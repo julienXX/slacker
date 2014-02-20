@@ -11,6 +11,8 @@
          post_message/3
 ]).
 
+-define(API_URL, "https://slack.com/api/").
+
 
 %% API
 
@@ -168,8 +170,7 @@ post_message(Token, Channel, Message) ->
 %% Internals
 
 slack_request(Endpoint, Params) ->
-    Base_URL = "https://slack.com/api/",
-    URL = restc:construct_url(Base_URL, Endpoint, Params),
+    URL = restc:construct_url(API_URL, Endpoint, Params),
     restc:request(get, URL).
 
 ok() ->
