@@ -11,6 +11,16 @@
          post_message/3
 ]).
 
+-type json_term() :: list({binary(), json_term()})
+    | list(json_term())
+    | true
+    | false
+    | null
+    | integer()
+    | float()
+    | binary().
+-type http_response() :: {ok, Data :: json_term(), Meta :: json_term()} | {error, Reason :: term()}.
+
 -define(API_URL, "https://slack.com/api/").
 
 
@@ -26,143 +36,73 @@ init() ->
 
 %% Slack API
 
-%%----------------------------------------------------------------------
-%% Function: users_list/1
-%% Purpose:  List all users in the team
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc List all users in the team
+-spec users_list(Token :: string()) -> http_response().
 users_list(Token) ->
     slack_request("users.list", [{"token", Token}]).
 
-%%----------------------------------------------------------------------
-%% Function: channels_history/2
-%% Purpose:  Fetch history of messages and events from a given channel
-%% Args:     Token, Channel ID
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Fetch history of messages and events from a given channel
+-spec channels_history(Token :: string(), Channel :: string()) -> http_response().
 channels_history(Token, Channel) ->
     slack_request("channels.history", [{"token", Token},{"channel", Channel}]).
 
-%%----------------------------------------------------------------------
-%% Function: channels_mark/3
-%% Purpose:  Set read cursor in a channel
-%% Args:     Token, Channel ID, Timestamp of the most recently seen message
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Set read cursor in a channel
+-spec channels_mark(Token :: string(), Channel :: string(), Timestamp :: integer()) -> http_response().
 channels_mark(Token, Channel, Timestamp) ->
     slack_request("channels.mark", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
 
-%%----------------------------------------------------------------------
-%% Function: channels_list/1
-%% Purpose:  List of all channels in the team.
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc List of all channels in the team.
+-spec channels_list(Token :: string()) -> http_response().
 channels_list(Token) ->
     slack_request("channels.list", [{"token", Token}]).
 
-%%----------------------------------------------------------------------
-%% Function: files_upload/1
-%% Purpose:  Upload or create a file
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Upload or create a file
+-spec files_upload(Token :: string()) -> http_response().
 files_upload(Token) ->
     erlang:error(not_implemented_error).
 
-%%----------------------------------------------------------------------
-%% Function: files_list/1
-%% Purpose:  List & filter team files
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc List & filter team files
+-spec files_list(Token :: string()) -> http_response().
 files_list(Token) ->
     slack_request("files.list", [{"token", Token}]).
 
-%%----------------------------------------------------------------------
-%% Function: im_history/2
-%% Purpose:  Fetch history of messages and events from a given direct message channel
-%% Args:     Token, Channel ID
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Fetch history of messages and events from a given direct message channel
+-spec im_history(Token :: string(), Channel :: string()) -> http_response().
 im_history(Token, Channel) ->
     slack_request("im.history", [{"token", Token},{"channel", Channel}]).
 
-%%----------------------------------------------------------------------
-%% Function: im_list/1
-%% Purpose:  List of im channels the user has.
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc List of im channels the user has.
+-spec im_list(Token :: string()) -> http_response().
 im_list(Token) ->
     slack_request("im.list", [{"token", Token}]).
 
-%%----------------------------------------------------------------------
-%% Function: groups_history/2
-%% Purpose:  Fetch history of messages and events from a given private group
-%% Args:     Token, Channel ID
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Fetch history of messages and events from a given private group
+-spec groups_history(Token :: string(), Channel :: string()) -> http_response().
 groups_history(Token, Channel) ->
     slack_request("groups.history", [{"token", Token},{"channel", Channel}]).
 
-%%----------------------------------------------------------------------
-%% Function: groups_list/1
-%% Purpose:  List of groups in the team that the calling user has access to.
-%% Args:     Token
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc List of groups in the team that the calling user has access to.
+-spec groups_list(Token :: string()) -> http_response().
 groups_list(Token) ->
     slack_request("groups.list", [{"token", Token}]).
 
-%%----------------------------------------------------------------------
-%% Function: search_all/2
-%% Purpose:  Search for messages and files matching a query
-%% Args:     Token, Query
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Search for messages and files matching a query
+-spec search_all(Token :: string(), Query :: string()) -> http_response().
 search_all(Token, Query) ->
     slack_request("search.all", [{"token", Token},{"query", Query}]).
 
-%%----------------------------------------------------------------------
-%% Function: search_files/2
-%% Purpose:  Search for files matching a query
-%% Args:     Token, Query
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Search for files matching a query
+-spec search_files(Token :: string(), Query :: string()) -> http_response().
 search_files(Token, Query) ->
     slack_request("search.files", [{"token", Token},{"query", Query}]).
 
-%%----------------------------------------------------------------------
-%% Function: search_messages/2
-%% Purpose:  Search for messages matching a query
-%% Args:     Token, Query
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Search for messages matching a query
+-spec search_messages(Token :: string(), Query :: string()) -> http_response().
 search_messages(Token, Query) ->
     slack_request("search.messages", [{"token", Token},{"query", Query}]).
 
-%%----------------------------------------------------------------------
-%% Function: post_message/3
-%% Purpose:  Post a message
-%% Args:     Token, Channel ID, Message to post
-%% Returns:  A list of {Status, Body}
-%%           or {error, Reason}
-%%----------------------------------------------------------------------
+%% @doc Post a message
+-spec post_message(Token :: string(), Channel :: string(), Message :: string()) -> http_response().
 post_message(Token, Channel, Message) ->
     slack_request("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
 
@@ -170,7 +110,7 @@ post_message(Token, Channel, Message) ->
 %% Internals
 
 slack_request(Endpoint, Params) ->
-    URL = restc:construct_url(API_URL, Endpoint, Params),
+    URL = restc:construct_url(?API_URL, Endpoint, Params),
     restc:request(get, URL).
 
 ok() ->
