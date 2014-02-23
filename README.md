@@ -7,24 +7,24 @@ To use slacker, you need a team token that you can grab [here](https://api.slack
 
 ## Fetch dependencies
 ```shell
-    $ rebar get-deps
+$ rebar get-deps
 ```
 ## Compile
 ```shell
-    $ rebar compile
+$ rebar compile
 ```
 or
 ```shell
-    $ make all
+$ make all
 ```
 ## Quick start
 ```shell
 $ erl -pa ebin deps/*/ebin
 ```
 ```erlang
-    > Token = "your team token".
-    > slacker:init().
-    > {Status, Body} = slacker:users_list(Token).
+> Token = "your team token".
+> slacker:init().
+> {Status, Body} = slacker:users_list(Token).
 ```
 ## TODO
 - files.upload API endpoint is not implemented
