@@ -13,6 +13,10 @@ To use slacker, you need a team token that you can grab [here](https://api.slack
 ```shell
     $ rebar compile
 ```
+or
+```shell
+    $ make all
+```
 ## Quick start
 ```shell
     $ erl -pa ebin deps/*/ebin
