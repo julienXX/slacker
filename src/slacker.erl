@@ -1,16 +1,21 @@
+%%%----------------------------------------------------------------------------
+%%% @author Julien Blanchard <julien@sideburns.eu>
+%%% @doc
+%%% Erlang library for Slack API - http://api.slack.com/
+%%% @end
+%%%----------------------------------------------------------------------------
+
 -module(slacker).
 
--export([
-         init/0,
-         users_list/1,
+-export([users_list/1,
          channels_history/2, channels_mark/3, channels_list/1,
          files_upload/1, files_list/1,
          im_history/2, im_list/1,
          groups_history/2, groups_list/1,
          search_all/2, search_files/2, search_messages/2,
-         post_message/3
-]).
+         post_message/3]).
 
+-type headers() :: list({string(), any()}).
 -type json_term() :: list({binary(), json_term()})
     | list(json_term())
     | true
@@ -19,22 +24,12 @@
     | integer()
     | float()
     | binary().
--type http_response() :: {ok, Data :: json_term(), Meta :: json_term()} | {error, Reason :: term()}.
+-type http_response() :: {ok, Status :: integer(), Headers :: headers(), Body :: json_term()}.
 
 -define(API_URL, "https://slack.com/api/").
 
 
-%% API
-
-init() ->
-    application:start(inets),
-    application:start(crypto),
-    application:start(asn1),
-    application:start(public_key),
-    application:start(ssl).
-
-
-%% Slack API
+%%% Slack API
 
 %% @doc List all users in the team
 -spec users_list(Token :: string()) -> http_response().
@@ -107,11 +102,9 @@ post_message(Token, Channel, Message) ->
     slack_request("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
 
 
-%% Internals
+%%% Internals
 
+%% @doc Sends a request to Slack API
 slack_request(Endpoint, Params) ->
     URL = restc:construct_url(?API_URL, Endpoint, Params),
     restc:request(get, URL).
-
-ok() ->
-    ok.
