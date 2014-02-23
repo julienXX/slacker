@@ -19,9 +19,12 @@ or
 ```
 ## Quick start
 ```shell
-    $ erl -pa ebin deps/*/ebin
-    $ Token = "your team token".
-    $ slacker:init().
+$ erl -pa ebin deps/*/ebin
+```
+```erlang
+    > Token = "your team token".
+    > slacker:init().
+    > {Status, Body} = slacker:users_list(Token).
 ```
 ## TODO
 - files.upload API endpoint is not implemented
