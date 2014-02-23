@@ -21,10 +21,12 @@ $ make all
 ```shell
 $ erl -pa ebin deps/*/ebin
 ```
-```erlang
-> Token = "your team token".
-> slacker:init().
-> {Status, Body} = slacker:users_list(Token).
+```
+Eshell V5.10.4  (abort with ^G)
+1> inets:start().
+2> ssl:start().
+3> Token = "your team token".
+4> {Ok, Status, Headers, Body} = slacker:users_list(Token).
 ```
 ## TODO
 - files.upload API endpoint is not implemented
