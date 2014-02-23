@@ -1,6 +1,6 @@
 REBAR=`which rebar || ./rebar`
 
-all: deps compile
+all: clean deps compile
 
 deps:
 	@$(REBAR) get-deps
