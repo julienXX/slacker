@@ -12,11 +12,15 @@ deps:
 compile:
 	@$(REBAR) compile
 
+compile-no-deps:
+	@$(REBAR) compile skip_deps=true
+
 docs:
 	@$(REBAR) doc
 
-test:
-	@$(REBAR) eunit skip_deps=true suites=slacker_tests
+test: compile-no-deps
+	rm -rf .eunit
+	@$(REBAR) eunit skip_deps=true
 
 clean:
 	@$(REBAR) clean

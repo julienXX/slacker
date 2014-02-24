@@ -7,6 +7,7 @@
 
 -module(slacker).
 
+-export([start/0, stop/0]).
 -export([users_list/1,
          channels_history/2, channels_mark/3, channels_list/1,
          files_upload/1, files_list/1,
@@ -26,8 +27,18 @@
     | binary().
 -type http_response() :: {ok, Status :: integer(), Headers :: headers(), Body :: json_term()}.
 
+-define(DEPS, [crypto, asn1, public_key, ssl, inets, slacker]).
 -define(API_URL, "https://slack.com/api/").
 
+-spec start() -> ok.
+start() ->
+    [application:start(A) || A <- ?DEPS],
+    ok.
+
+-spec stop() -> ok.
+stop() ->
+    [application:stop(A) || A <- ?DEPS],
+    ok.
 
 %%% Slack API
 
