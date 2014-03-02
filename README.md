@@ -5,17 +5,24 @@ Erlang [Slack](http://slack.com) REST API wrapper.
 
 To use slacker, you need a team token that you can grab [here](https://api.slack.com/#auth).
 
-## Fetch dependencies
-```shell
-$ rebar get-deps
+## Installation
+
+Download the sources from our [Github
+repository](http://github.com/benoitc/hackney)
+
+To build the application simply run 'make all'. This should build .beam, .app
+files and documentation.
+
+To run tests run 'make test'.
+To generate doc, run 'make doc'.
+
+Or add it to your rebar config
+
 ```
-## Compile
-```shell
-$ rebar compile
-```
-or
-```shell
-$ make all
+{deps, [
+    ....
+    {slacker, ".*", {git, "git://github.com/julienXX/slacker.git", {branch, "master"}}}
+]}.
 ```
 ## Quick start
 ```shell

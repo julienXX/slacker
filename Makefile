@@ -1,7 +1,7 @@
 ERL=`which erl`
 REBAR=`which rebar`
 
-all: clean deps compile
+all: clean deps compile doc
 
 console: compile
 	@$(ERL) -pa ebin -pa deps/*/ebin
@@ -15,7 +15,7 @@ compile:
 compile-no-deps:
 	@$(REBAR) compile skip_deps=true
 
-docs:
+doc:
 	@$(REBAR) doc
 
 test: compile-no-deps
