@@ -8,7 +8,8 @@
 -module(slacker).
 
 -export([start/0, stop/0]).
--export([users_list/1,
+-export([auth_test/1,
+         users_list/1,
          channels_history/2, channels_mark/3, channels_list/1,
          files_upload/1, files_list/1,
          im_history/2, im_list/1,
@@ -41,6 +42,11 @@ stop() ->
     ok.
 
 %%% Slack API
+
+%% @doc Checks authentication and tells you who you are
+-spec auth_test(Token :: string()) -> http_response().
+auth_test(Token) ->
+    slack_request("auth.test", [{"token", Token}]).
 
 %% @doc List all users in the team
 -spec users_list(Token :: string()) -> http_response().
