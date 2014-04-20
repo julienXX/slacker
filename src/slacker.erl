@@ -11,11 +11,12 @@
 -export([auth_test/1,
          users_list/1,
          channels_history/2, channels_mark/3, channels_list/1,
-         files_upload/1, files_list/1,
+         files_upload/1, files_list/1, files_info/2,
          im_history/2, im_list/1,
          groups_history/2, groups_list/1,
          search_all/2, search_files/2, search_messages/2,
-         post_message/3]).
+         post_message/3,
+         stars_list/1]).
 
 -type headers() :: list({string(), any()}).
 -type json_term() :: list({binary(), json_term()})
@@ -78,6 +79,11 @@ files_upload(Token) ->
 files_list(Token) ->
     slack_request("files.list", [{"token", Token}]).
 
+%% @doc Returns information about a file in your team
+-spec files_info(Token :: string(), File :: string()) -> http_response().
+files_info(Token, File) ->
+    slack_request("files.info", [{"token", Token},{"file", File}]).
+
 %% @doc Fetch history of messages and events from a given direct message channel
 -spec im_history(Token :: string(), Channel :: string()) -> http_response().
 im_history(Token, Channel) ->
@@ -117,6 +123,11 @@ search_messages(Token, Query) ->
 -spec post_message(Token :: string(), Channel :: string(), Message :: string()) -> http_response().
 post_message(Token, Channel, Message) ->
     slack_request("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
+
+%% @doc Lists the items starred by a user
+-spec stars_list(Token :: string()) -> http_response().
+stars_list(Token) ->
+    slack_request("stars.list", [{"token", Token}]).
 
 
 %%% Internals
