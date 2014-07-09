@@ -10,7 +10,7 @@
 -export([start/0, stop/0]).
 -export([auth_test/1,
          users_list/1,
-         channels_history/2, channels_mark/3, channels_list/1,
+         channels_history/2, channels_mark/3, channels_list/1, channels_info/2,
          files_upload/1, files_list/1, files_info/2,
          im_history/2, im_list/1,
          groups_history/2, groups_list/1,
@@ -68,6 +68,11 @@ channels_mark(Token, Channel, Timestamp) ->
 -spec channels_list(Token :: string()) -> http_response().
 channels_list(Token) ->
     slack_request("channels.list", [{"token", Token}]).
+
+%% @doc Returns information about a team channel
+-spec channels_info(Token :: string(), Channel :: string()) -> http_response().
+channels_info(Token, Channel) ->
+    slack_request("channels.info", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Upload or create a file
 -spec files_upload(Token :: string()) -> http_response().
