@@ -16,7 +16,8 @@
          groups_history/2, groups_list/1,
          search_all/2, search_files/2, search_messages/2,
          post_message/3,
-         stars_list/1]).
+         stars_list/1,
+         emoji_list/1]).
 
 -type headers() :: list({string(), any()}).
 -type json_term() :: list({binary(), json_term()})
@@ -133,6 +134,11 @@ post_message(Token, Channel, Message) ->
 -spec stars_list(Token :: string()) -> http_response().
 stars_list(Token) ->
     slack_request("stars.list", [{"token", Token}]).
+
+%% @doc Lists the custom emoji for a team
+-spec emoji_list(Token :: string()) -> http_response().
+emoji_list(Token) ->
+    slack_request("emoji.list", [{"token", Token}]).
 
 
 %%% Internals
