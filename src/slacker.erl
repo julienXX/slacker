@@ -78,7 +78,7 @@ channels_history(Token, Channel) ->
     slack_request("channels.history", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Set read cursor in a channel.
--spec channels_mark(Token :: string(), Channel :: string(), Timestamp :: integer()) -> http_response().
+-spec channels_mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().
 channels_mark(Token, Channel, Timestamp) ->
     slack_request("channels.mark", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
 
