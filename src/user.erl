@@ -1,4 +1,4 @@
--module(users).
+-module(user).
 
 -include("spec.hrl").
 -export([list/1]).

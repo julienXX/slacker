@@ -1,5 +1,4 @@
 -module(request).
--include("defines.hrl").
 
 -define(API_URL, "https://slack.com/api/").
 
