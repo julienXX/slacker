@@ -2,3 +2,4 @@ deps
 ebin
 .eunit
 token.txt
+.rebar
