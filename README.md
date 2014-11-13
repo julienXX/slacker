@@ -26,14 +26,13 @@ Or add it to your rebar config
 ```
 ## Quick start
 ```shell
-$ erl -pa ebin deps/*/ebin
+$ erl -pz ebin deps/*/ebin
 ```
 ```
 Eshell V5.10.4  (abort with ^G)
-1> inets:start().
-2> ssl:start().
-3> Token = "your team token".
-4> {Ok, Status, Headers, Body} = slacker:users_list(Token).
+1> slacker:start().
+2> Token = "your team token".
+3> {Ok, Status, Headers, Body} = slacker_user:list(Token).
 ```
 ## TODO
 - files.upload API endpoint is not implemented
