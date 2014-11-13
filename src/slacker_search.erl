@@ -1,4 +1,4 @@
--module(search).
+-module(slacker_search).
 
 -include("spec.hrl").
 
