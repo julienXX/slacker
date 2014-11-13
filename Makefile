@@ -4,7 +4,7 @@ REBAR=`which rebar`
 all: clean deps compile doc
 
 console: compile
-	@$(ERL) -pa ebin -pa deps/*/ebin
+	@$(ERL) -pz ebin -pa deps/*/ebin
 
 deps:
 	@$(REBAR) get-deps
