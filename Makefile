@@ -1,15 +1,14 @@
-ERL=`which erl`
-REBAR=`which rebar`
+REBAR=$(shell which rebar)
 
 all: clean deps compile doc
 
-console: compile
-	@$(ERL) -pz ebin -pa deps/*/ebin
+repl:
+	@$(REBAR) shell
 
 deps:
 	@$(REBAR) get-deps
 
-compile:
+compile: deps
 	@$(REBAR) compile
 
 compile-no-deps:
