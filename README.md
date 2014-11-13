@@ -7,9 +7,6 @@ To use slacker, you need a team token that you can grab [here](https://api.slack
 
 ## Installation
 
-Download the sources from our [Github
-repository](http://github.com/benoitc/hackney)
-
 To build the application simply run 'make all'. This should build .beam, .app
 files and documentation.
 
