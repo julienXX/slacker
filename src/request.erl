@@ -1,5 +1,7 @@
 -module(request).
 
+-export([send/2]).
+
 -define(API_URL, "https://slack.com/api/").
 
 %% @doc Sends a request to Slack API

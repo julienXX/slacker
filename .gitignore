@@ -3,3 +3,6 @@ ebin
 .eunit
 token.txt
 .rebar
+auth.beam
+request.beam
+slacker.beam

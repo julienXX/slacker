@@ -3,7 +3,17 @@
   {description, "Erlang Slack REST API wrapper"},
   {vsn, "1"},
   {modules, [
-             slacker
+             slacker,
+             auth,
+             channel,
+             user,
+             file,
+             group,
+             request,
+             chat,
+             im,
+             search,
+             misc
             ]},
   {registered, []},
   {applications, [
