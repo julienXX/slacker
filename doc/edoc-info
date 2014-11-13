@@ -1,4 +1,6 @@
 %% encoding: UTF-8
 {application,slacker}.
 {packages,[]}.
-{modules,[]}.
+{modules,[slacker,slacker_auth,slacker_channel,slacker_chat,slacker_group,
+          slacker_im,slacker_misc,slacker_request,slacker_search,
+          slacker_user]}.
