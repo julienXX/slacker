@@ -23,10 +23,10 @@ Or add it to your rebar config
 ```
 ## Quick start
 ```shell
-$ erl -pz ebin deps/*/ebin
+λ rebar shell
 ```
 ```
-Eshell V5.10.4  (abort with ^G)
+Eshell V6.2  (abort with ^G)
 1> slacker:start().
 2> Token = "your team token".
 3> {Ok, Status, Headers, Body} = slacker_user:list(Token).
