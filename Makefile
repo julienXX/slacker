@@ -16,7 +16,7 @@ compile-no-deps:
 	@$(REBAR) compile skip_deps=true
 
 doc:
-	@$(REBAR) doc
+	@$(REBAR) doc skip_deps=true
 
 test: compile-no-deps
 	rm -rf .eunit
