@@ -1,20 +1,8 @@
 {application, slacker,
  [
   {description, "Erlang Slack REST API wrapper"},
-  {vsn, "1"},
-  {modules, [
-             slacker,
-             auth,
-             channel,
-             user,
-             file,
-             group,
-             request,
-             chat,
-             im,
-             search,
-             misc
-            ]},
+  {vsn, "0.2"},
+  {modules, []},
   {registered, []},
   {applications, [
                   kernel,
