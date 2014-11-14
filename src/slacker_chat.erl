@@ -7,14 +7,14 @@
 %% @doc Updates a message in a channel.
 -spec update(Token :: string(), TimeStamp :: string(), Channel :: string(), Text :: string()) -> http_response().
 update(Token, TimeStamp, Channel, Text) ->
-    slacker_request:slack("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel},{"text", Text}]).
+    slacker_request:send("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel},{"text", Text}]).
 
 %% @doc Deletes a message from a channel.
 -spec delete(Token :: string(), TimeStamp :: string(), Channel :: string()) -> http_response().
 delete(Token, TimeStamp, Channel) ->
-    slacker_request:slack("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel}]).
+    slacker_request:send("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel}]).
 
 %% @doc Post a message.
 -spec post_message(Token :: string(), Channel :: string(), Message :: string()) -> http_response().
 post_message(Token, Channel, Message) ->
-    slacker_request:slack("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
+    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
