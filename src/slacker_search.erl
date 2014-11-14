@@ -7,14 +7,14 @@
 %% @doc Search for messages and files matching a query.
 -spec all(Token :: string(), Query :: string()) -> http_response().
 all(Token, Query) ->
-    request:slack("search.all", [{"token", Token},{"query", Query}]).
+    slacker_request:send("search.all", [{"token", Token},{"query", Query}]).
 
 %% @doc Search for files matching a query.
 -spec files(Token :: string(), Query :: string()) -> http_response().
 files(Token, Query) ->
-    request:slack("search.files", [{"token", Token},{"query", Query}]).
+    slacker_request:send("search.files", [{"token", Token},{"query", Query}]).
 
 %% @doc Search for messages matching a query.
 -spec messages(Token :: string(), Query :: string()) -> http_response().
 messages(Token, Query) ->
-    request:slack("search.messages", [{"token", Token},{"query", Query}]).
+    slacker_request:send("search.messages", [{"token", Token},{"query", Query}]).
