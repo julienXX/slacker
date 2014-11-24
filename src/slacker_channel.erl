@@ -2,10 +2,15 @@
 
 -include("spec.hrl").
 
--export([info/2, join/2, leave/2, history/2,
+-export([create/2, info/2, join/2, leave/2, history/2,
          mark/3, invite/3, list/1, kick/3, rename/3,
          set_purpose/3, set_topic/3]).
 
+
+%% @doc Creates a channel.
+-spec create(Token :: string(), Name :: string()) -> http_response().
+create(Token, Name) ->
+    slacker_request:send("channels.create", [{"token", Token},{"name", Name}]).
 
 %% @doc Returns information about a team channel.
 -spec info(Token :: string(), Channel :: string()) -> http_response().
