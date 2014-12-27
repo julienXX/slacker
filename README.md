@@ -46,3 +46,7 @@ License in LICENSE file
 
 ## More info
 More info at julien@sideburns.eu
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/julienXX/slacker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
