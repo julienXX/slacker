@@ -37,4 +37,4 @@ post_message(Token, Channel, Message, Username, IconUrl) ->
 -spec post_rich_message(Token :: string(), Channel :: string(), Username :: string(), IconUrl :: string(), Attachment :: any()) -> http_response().
 post_rich_message(Token, Channel, Username, IconUrl, Attachment) ->
     slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},
-                                              {"username", Username}, {"icon_url", IconUrl},{"attachments", [Attachment]}]).
+                                              {"username", Username}, {"icon_url", IconUrl},{"attachments", Attachment}]).
