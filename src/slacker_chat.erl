@@ -26,12 +26,10 @@ post_message(Token, Channel, Message) ->
 post_message(Token, Channel, Message, Username) ->
     slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel}, {"username", Username},{"text", Message}]).
 
-
 %% @doc Post a message as a specific user and custom icon.
 -spec post_message(Token :: string(), Channel :: string(), Message :: string(), Username :: string(), IconUrl :: string()) -> http_response().
 post_message(Token, Channel, Message, Username, IconUrl) ->
     slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel}, {"username", Username}, {"icon_url", IconUrl},{"text", Message}]).
-
 
 %% @doc Post a message as a specific user and custom icon and attachment.
 -spec post_rich_message(Token :: string(), Channel :: string(), Username :: string(), IconUrl :: string(), Attachment :: any()) -> http_response().
