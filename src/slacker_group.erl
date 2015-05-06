@@ -2,20 +2,20 @@
 
 -include("spec.hrl").
 
--export([history/2, list/1, create/2, create_child/2,
-         invite/3, kick/3, leave/2, mark/3, rename/3,
-         set_purpose/3, set_topic/3]).
+-export([archive/2, close/2, create/2, create_child/2, history/2,
+         info/2, invite/3, kick/3, leave/2, list/1, mark/3, open/2,
+         rename/3, set_purpose/3, set_topic/3, unarchive/2]).
 
 
-%% @doc Fetch history of messages and events from a given private group.
--spec history(Token :: string(), Channel :: string()) -> http_response().
-history(Token, Channel) ->
-    slacker_request:send("groups.history", [{"token", Token},{"channel", Channel}]).
+%% @doc Archives a private group.
+-spec archive(Token :: string(), Channel :: string()) -> http_response().
+archive(Token, Channel) ->
+    slacker_request:send("groups.archive", [{"token", Token},{"channel", Channel}]).
 
-%% @doc List of groups in the team that the calling user has access to.
--spec list(Token :: string()) -> http_response().
-list(Token) ->
-    slacker_request:send("groups.list", [{"token", Token}]).
+%% @doc Closes a private group.
+-spec close(Token :: string(), Channel :: string()) -> http_response().
+close(Token, Channel) ->
+    slacker_request:send("groups.close", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Creates a private group.
 -spec create(Token :: string(), Name :: string()) -> http_response().
@@ -26,6 +26,16 @@ create(Token, Name) ->
 -spec create_child(Token :: string(), Channel :: string()) -> http_response().
 create_child(Token, Channel) ->
     slacker_request:send("groups.createChild", [{"token", Token},{"channel", Channel}]).
+
+%% @doc Fetch history of messages and events from a given private group.
+-spec history(Token :: string(), Channel :: string()) -> http_response().
+history(Token, Channel) ->
+    slacker_request:send("groups.history", [{"token", Token},{"channel", Channel}]).
+
+%% @doc Gets information about a private group.
+-spec info(Token :: string(), Channel :: string()) -> http_response().
+info(Token, Channel) ->
+    slacker_request:send("groups.info", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Invites a user to a private group.
 -spec invite(Token :: string(), Channel :: string(), User :: string()) -> http_response().
@@ -42,10 +52,20 @@ kick(Token, Channel, User) ->
 leave(Token, Channel) ->
     slacker_request:send("groups.leave", [{"token", Token},{"channel", Channel}]).
 
+%% @doc List of groups in the team that the calling user has access to.
+-spec list(Token :: string()) -> http_response().
+list(Token) ->
+    slacker_request:send("groups.list", [{"token", Token}]).
+
 %% @doc Sets the read cursor in a private group.
 -spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().
 mark(Token, Channel, Timestamp) ->
     slacker_request:send("groups.leave", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
+
+%% @doc Opens a private group.
+-spec open(Token :: string(), Channel :: string()) -> http_response().
+open(Token, Channel) ->
+    slacker_request:send("groups.open", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Rename a group.
 -spec rename(Token :: string(), Channel :: string(), Name :: string()) -> http_response().
@@ -61,3 +81,8 @@ set_purpose(Token, Channel, Purpose) ->
 -spec set_topic(Token :: string(), Channel :: string(), Topic :: string()) -> http_response().
 set_topic(Token, Channel, Topic) ->
     slacker_request:send("groups.setTopic", [{"token", Token},{"channel", Channel},{"topic", Topic}]).
+
+%% @doc Unarchives a private group.
+-spec unarchive(Token :: string(), Channel :: string()) -> http_response().
+unarchive(Token, Channel) ->
+    slacker_request:send("groups.unarchive", [{"token", Token},{"channel", Channel}]).
