@@ -2,7 +2,7 @@
 
 -include("spec.hrl").
 
--export([stars_list/1, emoji_list/1, presence_set/2]).
+-export([stars_list/1, emoji_list/1]).
 
 
 %% @doc Lists the items starred by a user.
@@ -14,8 +14,3 @@ stars_list(Token) ->
 -spec emoji_list(Token :: string()) -> http_response().
 emoji_list(Token) ->
     slacker_request:send("emoji.list", [{"token", Token}]).
-
-%% @doc Manually set user presence.
--spec presence_set(Token :: string(), Presence :: string()) -> http_response().
-presence_set(Token, Presence) ->
-    slacker_request:send("presence.set", [{"token", Token},{"presence", Presence}]).
