@@ -2,55 +2,60 @@
 
 -include("spec.hrl").
 
--export([create/2, info/2, join/2, leave/2, history/2,
-         mark/3, invite/3, list/1, kick/3, rename/3,
-         set_purpose/3, set_topic/3]).
+-export([archive/2, create/2, history/2, info/2, invite/3,
+         join/2, kick/3, leave/2, list/1, mark/3, rename/3,
+         set_purpose/3, set_topic/3, unarchive/2]).
 
+
+%% @doc Archives a channel.
+-spec archive(Token :: string(), Channel :: string()) -> http_response().
+archive(Token, Channel) ->
+    slacker_request:send("channels.archive", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Creates a channel.
 -spec create(Token :: string(), Name :: string()) -> http_response().
 create(Token, Name) ->
     slacker_request:send("channels.create", [{"token", Token},{"name", Name}]).
 
+%% @doc Fetches history of messages and events from a channel.
+-spec history(Token :: string(), Channel :: string()) -> http_response().
+history(Token, Channel) ->
+    slacker_request:send("channels.history", [{"token", Token},{"channel", Channel}]).
+
 %% @doc Returns information about a team channel.
 -spec info(Token :: string(), Channel :: string()) -> http_response().
 info(Token, Channel) ->
     slacker_request:send("channels.info", [{"token", Token},{"channel", Channel}]).
+
+%% @doc Invites a user to a channel.
+-spec invite(Token :: string(), Channel :: string(), User :: string()) -> http_response().
+invite(Token, Channel, User) ->
+    slacker_request:send("channels.invite", [{"token", Token},{"channel", Channel},{"user", User}]).
 
 %% @doc Join a channel. If the channel does not exist, it is created.
 -spec join(Token :: string(), Channel :: string()) -> http_response().
 join(Token, Channel) ->
     slacker_request:send("channels.join", [{"token", Token},{"channel", Channel}]).
 
+%% @doc Removes a user from a channel.
+-spec kick(Token :: string(), Channel :: string(), User :: string()) -> http_response().
+kick(Token, Channel, User) ->
+    slacker_request:send("channels.kick", [{"token", Token},{"channel", Channel},{"user", User}]).
+
 %% @doc Leave a channel.
 -spec leave(Token :: string(), Channel :: string()) -> http_response().
 leave(Token, Channel) ->
     slacker_request:send("channels.leave", [{"token", Token},{"channel", Channel}]).
-
-%% @doc Fetch history of messages and events from a given channel.
--spec history(Token :: string(), Channel :: string()) -> http_response().
-history(Token, Channel) ->
-    slacker_request:send("channels.history", [{"token", Token},{"channel", Channel}]).
-
-%% @doc Set read cursor in a channel.
--spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().
-mark(Token, Channel, Timestamp) ->
-    slacker_request:send("channels.mark", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
-
-%% @doc Set read cursor in a channel.
--spec invite(Token :: string(), Channel :: string(), User :: string()) -> http_response().
-invite(Token, Channel, User) ->
-    slacker_request:send("channels.invite", [{"token", Token},{"channel", Channel},{"user", User}]).
 
 %% @doc List of all channels in the team.
 -spec list(Token :: string()) -> http_response().
 list(Token) ->
     slacker_request:send("channels.list", [{"token", Token}]).
 
-%% @doc Removes a user from a channel.
--spec kick(Token :: string(), Channel :: string(), User :: string()) -> http_response().
-kick(Token, Channel, User) ->
-    slacker_request:send("channels.kick", [{"token", Token},{"channel", Channel},{"user", User}]).
+%% @doc Set read cursor in a channel.
+-spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().
+mark(Token, Channel, Timestamp) ->
+    slacker_request:send("channels.mark", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
 
 %% @doc Rename a channel.
 -spec rename(Token :: string(), Channel :: string(), Name :: string()) -> http_response().
@@ -66,3 +71,8 @@ set_purpose(Token, Channel, Purpose) ->
 -spec set_topic(Token :: string(), Channel :: string(), Topic :: string()) -> http_response().
 set_topic(Token, Channel, Topic) ->
     slacker_request:send("channels.setTopic", [{"token", Token},{"channel", Channel},{"topic", Topic}]).
+
+%% @doc Unarchives a channel.
+-spec unarchive(Token :: string(), Channel :: string()) -> http_response().
+unarchive(Token, Channel) ->
+    slacker_request:send("channels.unarchive", [{"token", Token},{"channel", Channel}]).
