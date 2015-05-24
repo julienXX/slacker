@@ -47,7 +47,6 @@ Fields = [[{title, "Col"}, {value, 1}]].
 Msg = slacker_rich_message:format_table(<<"Hello">> <<"Hello World!">>, Fields, <<"#df4f18">>).
 ```
 
-```
 ## TODO
 - files.upload API endpoint is not implemented
 - add specs
