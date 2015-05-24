@@ -30,6 +30,7 @@ Eshell V6.2  (abort with ^G)
 1> slacker:start().
 2> Token = "your team token".
 3> {Ok, Status, Headers, Body} = slacker_user:list(Token).
+```
 
 ## Message formatting
 
