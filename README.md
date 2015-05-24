@@ -30,6 +30,23 @@ Eshell V6.2  (abort with ^G)
 1> slacker:start().
 2> Token = "your team token".
 3> {Ok, Status, Headers, Body} = slacker_user:list(Token).
+
+## Message formatting
+
+Slack messages are JSON structures that follow specific [formatting](https://api.slack.com/docs/attachments). After creating message you pass it
+to `slacker_chat:post_rich_message/5` as `attachment` parameter.
+
+Simple message with bot icon and colored left border:
+```erlang
+Msg = slacker_rich_:format(<<"Hello">> <<"Hello World!">>, Fields, <<"#df4f18">>).
+```
+
+Simple message with table, bot icon and colored left border:
+```erlang
+Fields = [[{title, "Col"}, {value, 1}]].
+Msg = slacker_rich_message:format_table(<<"Hello">> <<"Hello World!">>, Fields, <<"#df4f18">>).
+```
+
 ```
 ## TODO
 - files.upload API endpoint is not implemented
