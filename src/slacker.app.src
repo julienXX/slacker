@@ -11,7 +11,12 @@
                   ssl,
                   crypto,
                   public_key,
-                  slacker, 
+		  certifi,
+		  mimerl,
+		  mochiweb,
+		  restc,
+		  ssl_verify_hostname,
+		  idna,
                   hackney,
                   jsx
                  ]},
