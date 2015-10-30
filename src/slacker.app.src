@@ -8,7 +8,17 @@
                   kernel,
                   stdlib,
                   inets,
-                  ssl
+                  ssl,
+                  crypto,
+                  public_key,
+                  certifi,
+                  mimerl,
+                  mochiweb,
+                  ssl_verify_hostname,
+                  idna,
+                  hackney,
+                  restc,
+                  jsx
                  ]},
   {env, []}
  ]}.
