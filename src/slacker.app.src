@@ -14,10 +14,10 @@
                   certifi,
                   mimerl,
                   mochiweb,
-                  restc,
                   ssl_verify_hostname,
                   idna,
                   hackney,
+                  restc,
                   jsx
                  ]},
   {env, []}

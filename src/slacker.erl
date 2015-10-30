@@ -9,7 +9,7 @@
 
 -export([start/0, stop/0]).
 
--define(DEPS, [crypto, asn1, public_key, ssl, inets, slacker, hackney]).
+-define(DEPS, [crypto, asn1, public_key, ssl, inets, idna, hackney]).
 
 -spec start() -> ok.
 start() ->
