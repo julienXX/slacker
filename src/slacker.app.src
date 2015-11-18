@@ -8,7 +8,13 @@
                   kernel,
                   stdlib,
                   inets,
-                  ssl
+                  ssl,
+                  crypto,
+                  asn1,
+                  public_key,
+                  idna,
+                  hackney,
+                  jsx
                  ]},
   {env, []}
  ]}.
