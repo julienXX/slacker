@@ -22,7 +22,7 @@ post_message(Token, Channel, Message) ->
     slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
 
 %% @doc Post a message as a specific user.
--spec post_message(Token :: string(), Channel :: string(), Message :: string(), Usrname :: string()) -> http_response().
+-spec post_message(Token :: string(), Channel :: string(), Message :: string(), Username :: string()) -> http_response().
 post_message(Token, Channel, Message, Username) ->
     slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel}, {"username", Username},{"text", Message}]).
 
