@@ -20,12 +20,12 @@ history(Token, Channel) ->
 list(Token) ->
     slacker_request:send("im.list", [{"token", Token}]).
 
-%% @doc Fetch history of messages and events from a given direct message channel.
+%% @doc Moves the read cursor in a direct message channel.
 -spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().
 mark(Token, Channel, Timestamp) ->
     slacker_request:send("im.history", [{"token", Token},{"channel", Channel},{"ts", Timestamp}]).
 
 %% @doc Opens a direct message channel.
--spec open(Token :: string(), Channel :: string()) -> http_response().
-open(Token, Channel) ->
-    slacker_request:send("im.open", [{"token", Token},{"channel", Channel}]).
+-spec open(Token :: string(), User :: string()) -> http_response().
+open(Token, User) ->
+    slacker_request:send("im.open", [{"token", Token},{"user", User}]).
