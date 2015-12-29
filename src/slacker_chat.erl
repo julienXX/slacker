@@ -7,14 +7,14 @@
 -export([post_rich_message/5]).
 
 %% @doc Updates a message in a channel.
--spec update(Token :: string(), TimeStamp :: string(), Channel :: string(), Text :: string()) -> http_response().
-update(Token, TimeStamp, Channel, Text) ->
-    slacker_request:send("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel},{"text", Text}]).
+-spec update(Token :: string(), Timestamp :: string(), Channel :: string(), Text :: string()) -> http_response().
+update(Token, Timestamp, Channel, Text) ->
+    slacker_request:send("chat.delete", [{"token", Token},{"ts", Timestamp},{"channel", Channel},{"text", Text}]).
 
 %% @doc Deletes a message from a channel.
--spec delete(Token :: string(), TimeStamp :: string(), Channel :: string()) -> http_response().
-delete(Token, TimeStamp, Channel) ->
-    slacker_request:send("chat.delete", [{"token", Token},{"ts", TimeStamp},{"channel", Channel}]).
+-spec delete(Token :: string(), Timestamp :: string(), Channel :: string()) -> http_response().
+delete(Token, Timestamp, Channel) ->
+    slacker_request:send("chat.delete", [{"token", Token},{"ts", Timestamp},{"channel", Channel}]).
 
 %% @doc Post a message.
 -spec post_message(Token :: string(), Channel :: string(), Message :: string()) -> http_response().
