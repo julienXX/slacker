@@ -8,7 +8,8 @@
                   kernel,
                   stdlib,
                   inets,
-                  ssl
+                  ssl,
+                  restc
                  ]},
   {env, []}
  ]}.
