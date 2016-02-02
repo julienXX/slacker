@@ -34,18 +34,18 @@ Eshell V6.2  (abort with ^G)
 
 ## Message formatting
 
-Slack messages are JSON structures that follow specific [formatting](https://api.slack.com/docs/attachments). After creating message you pass it
-to `slacker_chat:post_rich_message/5` as `attachment` parameter.
+Slack messages are JSON structures that follow a specific [formatting](https://api.slack.com/docs/attachments). After creating a message you pass it
+to `slacker_chat:post_rich_message/5` as an `attachment` parameter.
 
-Simple message with bot icon and colored left border:
+Simple message with a bot icon and a colored left border:
 ```erlang
-Msg = slacker_rich_:format(<<"Hello">> <<"Hello World!">>, Fields, <<"#df4f18">>).
+Msg = slacker_rich_messages:format(<<"Hello">>, <<"Hello World!">>, <<"#df4f18">>).
 ```
 
-Simple message with table, bot icon and colored left border:
+Simple message with a table, a bot icon and a colored left border:
 ```erlang
 Fields = [[{title, "Col"}, {value, 1}]].
-Msg = slacker_rich_message:format_table(<<"Hello">> <<"Hello World!">>, Fields, <<"#df4f18">>).
+Msg = slacker_rich_messages:format_table(<<"Hello">>, <<"Hello World!">>, Fields, <<"#df4f18">>).
 ```
 
 ## TODO
