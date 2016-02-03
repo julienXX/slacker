@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module slacker_usergroup</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module slacker_usergroup</h1>
+<ul class="index"><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#create-3">create/3</a></td><td>Create a user group.</td></tr>
+<tr><td valign="top"><a href="#disable-3">disable/3</a></td><td>Disable a user group.</td></tr>
+<tr><td valign="top"><a href="#enable-3">enable/3</a></td><td>Enable a disabled user group.</td></tr>
+<tr><td valign="top"><a href="#list-2">list/2</a></td><td>List user groups.</td></tr>
+<tr><td valign="top"><a href="#list_users-3">list_users/3</a></td><td>List users in a user group.</td></tr>
+<tr><td valign="top"><a href="#update-3">update/3</a></td><td>Update a user group.</td></tr>
+<tr><td valign="top"><a href="#update_users-4">update_users/4</a></td><td>Update the list of users.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="create-3">create/3</a></h3>
+<div class="spec">
+<p><tt>create(Token::string(), Name::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>Create a user group.</p>
+ 
+  Options can be:
+  handle: mention handle
+  description: short description
+  channels: comma separated string of encoded channel IDs for which the user group uses as a default
+  include_count: include the number of users in each user group
+ </p>
+
+<h3 class="function"><a name="disable-3">disable/3</a></h3>
+<div class="spec">
+<p><tt>disable(Token::string(), Usergroup::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>Disable a user group.</p>
+ 
+  Options can be:
+  include_count: include the number of users in each user group
+ </p>
+
+<h3 class="function"><a name="enable-3">enable/3</a></h3>
+<div class="spec">
+<p><tt>enable(Token::string(), Usergroup::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>Enable a disabled user group.</p>
+ 
+  Options can be:
+  include_count: include the number of users in each user group
+ </p>
+
+<h3 class="function"><a name="list-2">list/2</a></h3>
+<div class="spec">
+<p><tt>list(Token::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>List user groups.</p>
+ 
+  Options can be:
+  include_disabled: include disabled user groups
+  include_count: include the number of users in each user group
+  include_users: include the list of users in each user group
+ </p>
+
+<h3 class="function"><a name="list_users-3">list_users/3</a></h3>
+<div class="spec">
+<p><tt>list_users(Token::string(), Usergroup::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>List users in a user group.</p>
+ 
+  Options can be:
+  include_disabled: include the disabled user groups
+ </p>
+
+<h3 class="function"><a name="update-3">update/3</a></h3>
+<div class="spec">
+<p><tt>update(Token::string(), Usergroup::string(), Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>Update a user group.</p>
+ 
+  Options can be:
+  name: user group name
+  handle: mention handle
+  description: short description
+  channels: comma separated string of encoded channel IDs for which the user group uses as a default
+  include_count: include the number of users in each user group
+ </p>
+
+<h3 class="function"><a name="update_users-4">update_users/4</a></h3>
+<div class="spec">
+<p><tt>update_users(Token::string(), Usergroup::string(), Users::[string()], Options::list()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p><p>Update the list of users.</p>
+ 
+  Options can be:
+  include_count: include the number of users in the user group
+ </p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Feb 3 2016, 17:11:45.</i></p>
+</body>
+</html>

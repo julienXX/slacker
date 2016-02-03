@@ -2,33 +2,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Module slacker_request</title>
+<title>Module slacker_file_comment</title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
 </head>
 <body bgcolor="white">
 <div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
 <hr>
 
-<h1>Module slacker_request</h1>
+<h1>Module slacker_file_comment</h1>
 <ul class="index"><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>
 
 
 <h2><a name="index">Function Index</a></h2>
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#send-2">send/2</a></td><td>Sends a request to Slack API.</td></tr>
-<tr><td valign="top"><a href="#send-3">send/3</a></td><td>Sends a request with optional parameters to Slack API.</td></tr>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add-3">add/3</a></td><td>Add a comment to an existing file.</td></tr>
+<tr><td valign="top"><a href="#delete-3">delete/3</a></td><td>Delete an existing comment on a file.</td></tr>
+<tr><td valign="top"><a href="#edit-4">edit/4</a></td><td>Edit an existing comment on a file.</td></tr>
 </table>
 
 <h2><a name="functions">Function Details</a></h2>
 
-<h3 class="function"><a name="send-2">send/2</a></h3>
+<h3 class="function"><a name="add-3">add/3</a></h3>
 <div class="spec">
-<p><tt>send(Endpoint, Params) -&gt; any()</tt></p>
-</div><p>Sends a request to Slack API</p>
+<p><tt>add(Token::string(), File::string(), Comment::string()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p>Add a comment to an existing file.</p>
 
-<h3 class="function"><a name="send-3">send/3</a></h3>
+<h3 class="function"><a name="delete-3">delete/3</a></h3>
 <div class="spec">
-<p><tt>send(Endpoint, Params, Options) -&gt; any()</tt></p>
-</div><p>Sends a request with optional parameters to Slack API</p>
+<p><tt>delete(Token::string(), File::string(), CommentId::string()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p>Delete an existing comment on a file.</p>
+
+<h3 class="function"><a name="edit-4">edit/4</a></h3>
+<div class="spec">
+<p><tt>edit(Token::string(), File::string(), CommentId::string(), Comment::string()) -&gt; <a href="#type-http_response">http_response()</a></tt><br></p>
+</div><p>Edit an existing comment on a file.</p>
 <hr>
 
 <div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
