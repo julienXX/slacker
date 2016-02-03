@@ -1,8 +1,9 @@
--module(slacker_stars).
+-module(slacker_star).
 
 -include("spec.hrl").
 
 -export([add/2, list/3, remove/2]).
+
 
 %% @doc Add a star to an item.
 %%

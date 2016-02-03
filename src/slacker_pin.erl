@@ -1,4 +1,4 @@
--module(slacker_pins).
+-module(slacker_pin).
 
 -include("spec.hrl").
 
