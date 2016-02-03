@@ -2,8 +2,8 @@
 
 -include("spec.hrl").
 
--export([archive/2, close/2, create/2, create_child/2, history/2,
-         info/2, invite/3, kick/3, leave/2, list/1, mark/3, open/2,
+-export([archive/2, close/2, create/2, create_child/2, history/3,
+         info/2, invite/3, kick/3, leave/2, list/2, mark/3, open/2,
          rename/3, set_purpose/3, set_topic/3, unarchive/2]).
 
 
@@ -28,9 +28,17 @@ create_child(Token, Channel) ->
     slacker_request:send("groups.createChild", [{"token", Token},{"channel", Channel}]).
 
 %% @doc Fetch history of messages and events from a given private group.
--spec history(Token :: string(), Channel :: string()) -> http_response().
-history(Token, Channel) ->
-    slacker_request:send("groups.history", [{"token", Token},{"channel", Channel}]).
+%%
+%% Options can be:
+%% latest: end of time range of messages to include in results
+%% oldest: start of time range of messages to include in results
+%% inclusive: include messages with latest or oldest timestamp in results (default: 0)
+%% count: number of messages to return, between 1 and 1000 (default: 100)
+%% unreads: include unread_count_display in the output (default: 0)
+%%
+-spec history(Token :: string(), Channel :: string(), Options :: list()) -> http_response().
+history(Token, Channel, Options) ->
+    slacker_request:send("groups.history", [{"token", Token},{"channel", Channel}], Options).
 
 %% @doc Gets information about a private group.
 -spec info(Token :: string(), Channel :: string()) -> http_response().
@@ -53,9 +61,13 @@ leave(Token, Channel) ->
     slacker_request:send("groups.leave", [{"token", Token},{"channel", Channel}]).
 
 %% @doc List of groups in the team that the calling user has access to.
--spec list(Token :: string()) -> http_response().
-list(Token) ->
-    slacker_request:send("groups.list", [{"token", Token}]).
+%%
+%% Options can be:
+%% exclude_archived: do not return archived private channels (default: 0)
+%%
+-spec list(Token :: string(), Options :: list()) -> http_response().
+list(Token, Options) ->
+    slacker_request:send("groups.list", [{"token", Token}], Options).
 
 %% @doc Sets the read cursor in a private group.
 -spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().

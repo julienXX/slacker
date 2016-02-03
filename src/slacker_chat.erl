@@ -2,14 +2,8 @@
 
 -include("spec.hrl").
 
--export([update/4, delete/3]).
--export([post_message/3, post_message/4, post_message/5]).
--export([post_rich_message/5]).
+-export([delete/3, post_message/4, update/5]).
 
-%% @doc Updates a message in a channel.
--spec update(Token :: string(), Timestamp :: string(), Channel :: string(), Text :: string()) -> http_response().
-update(Token, Timestamp, Channel, Text) ->
-    slacker_request:send("chat.delete", [{"token", Token},{"ts", Timestamp},{"channel", Channel},{"text", Text}]).
 
 %% @doc Deletes a message from a channel.
 -spec delete(Token :: string(), Timestamp :: string(), Channel :: string()) -> http_response().
@@ -17,22 +11,29 @@ delete(Token, Timestamp, Channel) ->
     slacker_request:send("chat.delete", [{"token", Token},{"ts", Timestamp},{"channel", Channel}]).
 
 %% @doc Post a message.
--spec post_message(Token :: string(), Channel :: string(), Message :: string()) -> http_response().
-post_message(Token, Channel, Message) ->
-    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}]).
+%%
+%% Options can be:
+%% username: name of the bot
+%% as_user: pass true to post the message as the authed user, instead of as a bot
+%% parse: see https://api.slack.com/docs/formatting
+%% link_names: find and link channel names and usernames
+%% attachments: structured message attachments
+%% unfurl_links: true to enable unfurling of primarily text-based content
+%% unfurl_media: false to disable unfurling of media content
+%% icon_url: URL to an image to use as the icon for this message
+%% icon_emoji: emoji to use as the icon for this message
+%%
+-spec post_message(Token :: string(), Channel :: string(), Message :: string(), Options :: list()) -> http_response().
+post_message(Token, Channel, Message, Options) ->
+    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},{"text", Message}], Options).
 
-%% @doc Post a message as a specific user.
--spec post_message(Token :: string(), Channel :: string(), Message :: string(), Username :: string()) -> http_response().
-post_message(Token, Channel, Message, Username) ->
-    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel}, {"username", Username},{"text", Message}]).
-
-%% @doc Post a message as a specific user and custom icon.
--spec post_message(Token :: string(), Channel :: string(), Message :: string(), Username :: string(), IconUrl :: string()) -> http_response().
-post_message(Token, Channel, Message, Username, IconUrl) ->
-    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel}, {"username", Username}, {"icon_url", IconUrl},{"text", Message}]).
-
-%% @doc Post a message as a specific user and custom icon and attachment.
--spec post_rich_message(Token :: string(), Channel :: string(), Username :: string(), IconUrl :: string(), Attachment :: any()) -> http_response().
-post_rich_message(Token, Channel, Username, IconUrl, Attachment) ->
-    slacker_request:send("chat.postMessage", [{"token", Token},{"channel", Channel},
-                                              {"username", Username}, {"icon_url", IconUrl},{"attachments", Attachment}]).
+%% @doc Updates a message in a channel.
+%%
+%% Options can be:
+%% attachments: structured message attachments
+%% parse: see https://api.slack.com/docs/formatting
+%% link_names: find and link channel names and usernames
+%%
+-spec update(Token :: string(), Timestamp :: string(), Channel :: string(), Text :: string(), Options :: list()) -> http_response().
+update(Token, Timestamp, Channel, Text, Options) ->
+    slacker_request:send("chat.delete", [{"token", Token},{"ts", Timestamp},{"channel", Channel},{"text", Text}], Options).

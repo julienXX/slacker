@@ -2,7 +2,7 @@
 
 -include("spec.hrl").
 
--export([get_presence/2, info/2, list/1, set_active/1, set_presence/2]).
+-export([get_presence/2, info/2, list/2, set_active/1, set_presence/2]).
 
 
 %% @doc Gets user presence information.
@@ -11,9 +11,13 @@ get_presence(Token, User) ->
     slacker_request:send("users.getPresence", [{"token", Token},{"user", User}]).
 
 %% @doc List all users in the team.
--spec list(Token :: string()) -> http_response().
-list(Token) ->
-    slacker_request:send("users.list", [{"token", Token}]).
+%%
+%% Options can be:
+%% presence: include presence data in the output
+%%
+-spec list(Token :: string(), Options :: list()) -> http_response().
+list(Token, Options) ->
+    slacker_request:send("users.list", [{"token", Token}], Options).
 
 %% @doc Gets information about a user.
 -spec info(Token :: string(), User :: string()) -> http_response().

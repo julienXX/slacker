@@ -2,8 +2,8 @@
 
 -include("spec.hrl").
 
--export([archive/2, create/2, history/2, info/2, invite/3,
-         join/2, kick/3, leave/2, list/1, mark/3, rename/3,
+-export([archive/2, create/2, history/3, info/2, invite/3,
+         join/2, kick/3, leave/2, list/2, mark/3, rename/3,
          set_purpose/3, set_topic/3, unarchive/2]).
 
 
@@ -18,9 +18,17 @@ create(Token, Name) ->
     slacker_request:send("channels.create", [{"token", Token},{"name", Name}]).
 
 %% @doc Fetches history of messages and events from a channel.
--spec history(Token :: string(), Channel :: string()) -> http_response().
-history(Token, Channel) ->
-    slacker_request:send("channels.history", [{"token", Token},{"channel", Channel}]).
+%%
+%% Options can be:
+%% latest: end of time range of messages to include in results
+%% oldest: start of time range of messages to include in results
+%% inclusive: include messages with latest or oldest timestamp in results (default: 0)
+%% count: number of messages to return, between 1 and 1000 (default: 100)
+%% unreads: include unread_count_display in the output (default: 0)
+%%
+-spec history(Token :: string(), Channel :: string(), Options :: list()) -> http_response().
+history(Token, Channel, Options) ->
+    slacker_request:send("channels.history", [{"token", Token},{"channel", Channel}], Options).
 
 %% @doc Returns information about a team channel.
 -spec info(Token :: string(), Channel :: string()) -> http_response().
@@ -48,9 +56,13 @@ leave(Token, Channel) ->
     slacker_request:send("channels.leave", [{"token", Token},{"channel", Channel}]).
 
 %% @doc List of all channels in the team.
--spec list(Token :: string()) -> http_response().
-list(Token) ->
-    slacker_request:send("channels.list", [{"token", Token}]).
+%%
+%% Options can be:
+%% exclude_archived: do not return archived channels (default: 0)
+%%
+-spec list(Token :: string(), Options :: list()) -> http_response().
+list(Token, Options) ->
+    slacker_request:send("channels.list", [{"token", Token}], Options).
 
 %% @doc Set read cursor in a channel.
 -spec mark(Token :: string(), Channel :: string(), Timestamp :: string()) -> http_response().

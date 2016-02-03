@@ -1,14 +1,15 @@
 -module(slacker_api).
 
 -include("spec.hrl").
--export([test/1, test/2]).
+-export([test/2]).
 
 
 %% @doc Checks API calling code
--spec test(Token :: string()) -> http_response().
-test(Token) ->
-    slacker_request:send("api.test", [{"token", Token}]).
-
--spec test(Token :: string(), Error :: string()) -> http_response().
-test(Token, Error) ->
-    slacker_request:send("api.test", [{"token", Token},{"error", Error}]).
+%%
+%% Options can be:
+%% error: error response to return
+%% foo: example property to return
+%%
+-spec test(Token :: string(), Options :: list()) -> http_response().
+test(Token, Options) ->
+    slacker_request:send("api.test", [{"token", Token}], Options).
