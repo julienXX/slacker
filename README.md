@@ -50,7 +50,7 @@ Msg = slacker_rich_messages:format_table(<<"Hello">>, <<"Hello World!">>, Fields
 
 ## TODO
 - files.upload API endpoint is not implemented
-- add specs
+- RTM endpoint is not implemented
 
 ## Contribute
 - Fork slacker
