@@ -2,7 +2,7 @@
 
 -include("spec.hrl").
 
--export([end_dnd/1, end_snooze/1, set_snooze/2, info/3, team_info/3]).
+-export([end_dnd/1, end_snooze/1, set_snooze/2, info/2, team_info/2]).
 
 
 %% @doc Ends the user's currently scheduled Do Not Disturb session immediately.
@@ -15,7 +15,7 @@ end_dnd(Token) ->
 end_snooze(Token) ->
     slacker_request:send("dnd.endSnooze", [{"token", Token}]).
 
-%% @doc Ends the current user's snooze mode immediately.
+%% @doc Adjusts the snooze duration.
 -spec set_snooze(Token :: string(), NumMinutes :: integer()) -> http_response().
 set_snooze(Token, NumMinutes) ->
     slacker_request:send("dnd.endSnooze", [{"token", Token},{"num_minutes", NumMinutes}]).
@@ -25,15 +25,15 @@ set_snooze(Token, NumMinutes) ->
 %% Options can be:
 %% user: user to fetch status for (default: current user)
 %%
--spec info(Token :: string(), User :: string(), Options :: list()) -> http_response().
-info(Token, User, Options) ->
-    slacker_request:send("dnd.info", [{"token", Token},{"user", User}], Options).
+-spec info(Token :: string(), Options :: list()) -> http_response().
+info(Token, Options) ->
+    slacker_request:send("dnd.info", [{"token", Token}], Options).
 
 %% @doc Provides information about the current Do Not Disturb settings for users of a Slack team.
 %%
 %% Options can be:
 %% users: users to fetch status for
 %%
--spec team_info(Token :: string(), Users :: [string()], Options :: list()) -> http_response().
-team_info(Token, Users, Options) ->
-    slacker_request:send("dnd.info", [{"token", Token},{"users", Users}], Options).
+-spec team_info(Token :: string(), Options :: list()) -> http_response().
+team_info(Token, Options) ->
+    slacker_request:send("dnd.info", [{"token", Token}], Options).
