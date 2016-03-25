@@ -17,7 +17,7 @@ slacker_test_() ->
 unauth_get_test() ->
     slacker:start(),
     Token = "bad_token",
-    {_Ok, _Status, _Headers, Body} = slacker_user:list(Token),
+    {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(false, get_val(<<"ok">>, Body)),
     ?assertEqual(<<"invalid_auth">>, get_val(<<"error">>, Body)).
 
@@ -25,7 +25,7 @@ unauth_get_test() ->
 users_list_test() ->
     slacker:start(),
     Token = read_token(),
-    {_Ok, _Status, _Headers, Body} = slacker_user:list(Token),
+    {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(true, get_val(<<"ok">>, Body)).
 
 %%% Internal functionality
