@@ -28,6 +28,12 @@ users_list_test() ->
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(true, get_val(<<"ok">>, Body)).
 
+application_start_works_test() ->
+    slacker:start(),
+    Token = read_token(),
+    {_, _, _, Body} = slacker_user:get_presence(Token, "ipinak"),
+    ?assertEqual(false, get_val(<<"ok">>, Body)).
+
 %%% Internal functionality
 
 read_token() ->
