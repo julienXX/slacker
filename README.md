@@ -27,10 +27,11 @@ Or add it to your rebar config
 ```
 ```
 Eshell V6.2  (abort with ^G)
-1> slacker:start().
-2> Token = "your team token".
-2> Options = [].
-4> {Ok, Status, Headers, Body} = slacker_user:list(Token, Options).
+1> hackney:start().
+2> slacker:start().
+3> Token = "your team token".
+4> Options = [].
+5> {ok, Status, Headers, Body} = slacker_user:list(Token, Options).
 ```
 
 ## Message formatting
