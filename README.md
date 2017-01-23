@@ -26,11 +26,11 @@ Or add it to your rebar config
 λ rebar shell
 ```
 ```
-Eshell V6.2  (abort with ^G)
-1> slacker:start().
+Eshell V8.2  (abort with ^G)
+1> application:ensure_all_started(slacker).
 2> Token = "your team token".
 2> Options = [].
-4> {Ok, Status, Headers, Body} = slacker_user:list(Token, Options).
+4> {ok, Status, Headers, Body} = slacker_user:list(Token, Options).
 ```
 
 ## Message formatting
