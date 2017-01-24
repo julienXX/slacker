@@ -5,25 +5,23 @@
 
 slacker_test_() ->
     {setup,
-     fun() -> slacker:start() end,
+     fun() -> application:ensure_all_started(slacker) end,
      fun(_) -> slacker:stop() end,
      [
-      {timeout, 100, {"Unauthorized retrieve call", fun unauth_get_test/0}},
-      {timeout, 100, {"Retrieve users", fun users_list_test/0}}
+      {timeout, 100, {"Unauthorized retrieve call", fun test_unauth_get/0}},
+      {timeout, 100, {"Retrieve users", fun test_users_list/0}}
      ]
     }.
 
 
-unauth_get_test() ->
-    slacker:start(),
+test_unauth_get() ->
     Token = "bad_token",
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(false, get_val(<<"ok">>, Body)),
     ?assertEqual(<<"invalid_auth">>, get_val(<<"error">>, Body)).
 
 
-users_list_test() ->
-    slacker:start(),
+test_users_list() ->
     Token = read_token(),
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(true, get_val(<<"ok">>, Body)).
