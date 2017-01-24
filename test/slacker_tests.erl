@@ -2,7 +2,6 @@
 -export([]).
 -include_lib("eunit/include/eunit.hrl").
 
-
 slacker_test_() ->
     {setup,
      fun() -> application:ensure_all_started(slacker) end,
@@ -12,7 +11,6 @@ slacker_test_() ->
       {timeout, 100, {"Retrieve users", fun test_users_list/0}}
      ]
     }.
-
 
 test_unauth_get() ->
     Token = "bad_token",
@@ -26,6 +24,7 @@ test_users_list() ->
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(true, get_val(<<"ok">>, Body)).
 
+%%% Simple tests
 
 user_get_presence_test() ->
     slacker:start(),
