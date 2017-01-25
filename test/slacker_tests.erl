@@ -24,7 +24,10 @@ test_slack_is_up_and_running() ->
     ?assertEqual(true, get_val(<<"ok">>, Body)).
 
 test_unauth_get() ->
-    Token = "bad_token",
+    % The token in file token.txt.example is invalid, as we want for this test.
+    % We use read_token/1 instead than passing directly an invalid string
+    % to be sure that we can read the directory containing the token files.
+    {ok, Token} = read_token("token.txt.example"),
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(false, get_val(<<"ok">>, Body)),
     ?assertEqual(<<"invalid_auth">>, get_val(<<"error">>, Body)).
@@ -46,7 +49,10 @@ user_get_presence_test() ->
 %%% Internal functionality
 
 read_token() ->
-    case file:consult("../token.txt") of
+    read_token("token.txt").
+
+read_token(TokenFile) ->
+    case file:consult(code:lib_dir(slacker, priv) ++ "/" ++ TokenFile) of
         {ok, [Token]} -> {ok, Token};
         Error -> {error, {cannot_read_token, Error}}
     end.
