@@ -6,3 +6,6 @@ token.txt
 auth.beam
 request.beam
 slacker.beam
+_build/
+*.orig
+slacker.iml
