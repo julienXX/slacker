@@ -22,13 +22,13 @@ test_unauth_get() ->
 
 
 test_users_list() ->
-    Token = read_token(),
+    {ok, Token} = read_token(),
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
     ?assertEqual(true, get_val(<<"ok">>, Body)).
 
 application_start_works_test() ->
     slacker:start(),
-    Token = read_token(),
+    {ok, Token} = read_token(),
     {_, _, _, Body} = slacker_user:get_presence(Token, "ipinak"),
     ?assertEqual(false, get_val(<<"ok">>, Body)).
 
@@ -36,8 +36,8 @@ application_start_works_test() ->
 
 read_token() ->
     case file:consult("../token.txt") of
-        {ok,[Token]} -> Token;
-        Error -> throw(Error)
+        {ok, [Token]} -> {ok, Token};
+        Error -> {error, {cannot_read_token, Error}}
     end.
 
 get_val(Key, PL) ->
