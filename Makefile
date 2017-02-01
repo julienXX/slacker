@@ -1,30 +1,24 @@
-REBAR=$(shell which rebar)
+REBAR3=$(shell which rebar3)
 
-all: clean deps compile doc
+.PHONY: all repl compile clean doc test distclean
+
+all: compile doc
 
 repl:
-	@$(REBAR) shell
+	@$(REBAR3) shell
 
-deps:
-	@$(REBAR) get-deps
-
-compile: deps
-	@$(REBAR) compile
-
-compile-no-deps:
-	@$(REBAR) compile skip_deps=true
-
-doc:
-	@$(REBAR) doc skip_deps=true
-
-test: compile-no-deps
-	rm -rf .eunit
-	@$(REBAR) eunit skip_deps=true
+compile:
+	@$(REBAR3) compile
 
 clean:
-	@$(REBAR) clean
+	@$(REBAR3) clean
 
-distclean: clean
+doc:
+	@$(REBAR3) edoc
+
+test:
+	@$(REBAR3) eunit
+
+distclean:
 	@rm -f *.dump
-	@rm -rf ebin
-	@rm -rf deps
+	@rm -rf _build
