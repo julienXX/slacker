@@ -14,7 +14,6 @@ slacker_test_() ->
      ]
     }.
 
-
 % This should be the first test. It uses the lower-level slacker API and the
 % Slack test API, so that we don't need an API token and get an error closer
 % to the source of the problem. If this one fails, everything else using the
@@ -32,7 +31,6 @@ test_unauth_get() ->
     ?assertEqual(false, get_val(<<"ok">>, Body)),
     ?assertEqual(<<"invalid_auth">>, get_val(<<"error">>, Body)).
 
-
 test_users_list() ->
     {ok, Token} = read_token(),
     {_Ok, _Status, _Headers, Body} = slacker_user:list(Token, []),
@@ -41,10 +39,18 @@ test_users_list() ->
 %%% Simple tests
 
 user_get_presence_test() ->
-    slacker:start(),
+    application:ensure_all_started(slacker),
     {ok, Token} = read_token(),
     {_, _, _, Body} = slacker_user:get_presence(Token, "ipinak"),
     ?assertEqual(false, get_val(<<"ok">>, Body)).
+
+rtm_start_test() ->
+    application:ensure_all_started(slacker),
+    {ok, Token} = read_token(),
+    {ok, 200, _Headers, Body} = slacker_rtm:start(Token),
+    ?assertEqual(true, get_val(<<"ok">>, Body)),
+    % The URL should be a secure WebSocket.
+    ?assertMatch(<<"wss://", _/binary>>, get_val(<<"url">>, Body)).
 
 %%% Internal functionality
 
