@@ -50,7 +50,7 @@ Eshell V8.2  (abort with ^G)
 ## Message formatting
 
 Slack messages are JSON structures that follow a specific [formatting](https://api.slack.com/docs/attachments). After creating a message you pass it
-to `slacker_chat:post_rich_message/5` as an `attachment` parameter.
+to `slacker_chat:post_message/4` as an `attachment` parameter.
 
 Simple message with a bot icon and a colored left border:
 ```erlang
