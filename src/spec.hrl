@@ -11,4 +11,4 @@
 
 -type field_title() :: atom() | title | value.
 -type field()       :: {field_title(), binary()}.
--type fields()      :: [field()].
+-type fields()      :: list(list(field())).
