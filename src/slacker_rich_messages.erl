@@ -4,6 +4,7 @@
 
 -export([format/3, format/4, format/5]).
 -export([format_table/4, format_table/5]).
+-export([format_table_with_actions/6]).
 
 %% @doc Creates rich attachment message
 -spec format(binary(), binary(), binary()) -> binary().
@@ -51,6 +52,14 @@ format_table(Title, Message, Fields, Color, IconUrl) ->
              {<<"icon_url">>,  IconUrl},
              {<<"color">>,     Color}]).
 
+format_table_with_actions(Title, Message, Fields, Color, CallbackID, Actions) ->
+    to_json([{<<"fallback">>,    Message},
+             {<<"title">>,       Title},
+             {<<"text">>,        Message},
+             {<<"fields">>,      lists:map(fun format_field/1, Fields)},
+             {<<"callback_id">>, CallbackID},
+             {<<"actions">>,     Actions},
+             {<<"color">>,       Color}]).
 
 %%% Internal functionality
 
