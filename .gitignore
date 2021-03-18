@@ -6,3 +6,8 @@ token.txt
 auth.beam
 request.beam
 slacker.beam
+_build/
+rebar.lock
+*.orig
+*.crashdump
+slacker.iml

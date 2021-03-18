@@ -15,7 +15,7 @@
 info(Token, File, Options) ->
     slacker_request:send("files.info", [{"token", Token},{"file", File}], Options).
 
-%% @doc List & filter team files.
+%% @doc List and filter team files.
 %%
 %% Options can be:
 %% user: filter files created by a single user
